@@ -30,23 +30,35 @@ To reduce confusion and overwhelm after a PCOS diagnosis by surfacing personaliz
 life-after-pcos/
 │
 ├── 📁 data/               ← All your datasets
+
 │   ├── raw/              ← Unprocessed scraped text
+
 │   └── processed/        ← Cleaned, structured data (CSV, JSON)
+
 │
 ├── 📁 notebooks/         ← Jupyter/Colab notebooks for EDA + modeling
+
 │
 ├── 📁 src/               ← All core code files
+
 │   ├── scraper.py        ← Web scraper logic (Reddit, forums)
+
 │   ├── cleaner.py        ← NLP preprocessing and structuring
+
 │   ├── matcher.py        ← Similarity model & recommendations
+
 │   └── config.py         ← File paths, settings, constants
 │
 ├── 📁 app/               ← Streamlit frontend
+
 │   └── main.py           ← App entry point
 │
 ├── .gitignore            ← Ignore virtual envs, logs, etc.
+
 ├── README.md             ← Project overview (already done!)
+
 ├── requirements.txt      ← Python dependencies
+
 └── LICENSE (optional)    ← For public use (MIT recommended)
 
 
