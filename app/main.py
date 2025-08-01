@@ -1,3 +1,12 @@
+st.set_page_config(page_title="Life After PCOS", page_icon="💡")
+
+with st.sidebar:
+    st.title("💡 Life After PCOS")
+    st.markdown("👩‍⚕️ Personalized PCOS recovery guidance based on real journeys.")
+    st.markdown("🔍 Powered by NLP + real Reddit recovery stories.")
+    st.markdown("---")
+    st.markdown("📌 Built by **Preethi Bommineni**")
+
 import streamlit as st
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -13,16 +22,23 @@ corpus_embeddings = model.encode(corpus, show_progress_bar=False)
 st.title("💡 Life After PCOS")
 st.markdown("Enter your symptoms or experience to see what worked for others.")
 
-user_input = st.text_area("💬 Describe your PCOS symptoms or situation:", "")
+st.markdown("### 🩺 Describe your PCOS symptoms or situation:")
 
-if st.button("🔍 Find Similar Stories") and user_input.strip() != "":
-    query_embedding = model.encode([user_input])
-    similarities = cosine_similarity(query_embedding, corpus_embeddings)[0]
-    top_indices = similarities.argsort()[-3:][::-1]
+with st.form(key="symptom_form"):
+    user_input = st.text_area(" ", placeholder="E.g. acne, hair loss, missed periods, fatigue")
+    submit_button = st.form_submit_button("🔍 Find Similar Stories")
 
-    st.subheader("🔗 Top Recovery Stories")
-    for idx in top_indices:
-        st.markdown(f"**Reddit Post**: [Link](https://reddit.com{df.iloc[idx]['permalink']})")
-        st.markdown(f"**Upvotes**: {df.iloc[idx]['score']}")
-        st.write(df.iloc[idx]["clean_text"][:500] + "...")
-        st.markdown("---")
+if submit_button and user_input.strip():
+    with st.spinner("Matching your story with others..."):
+        query_embedding = model.encode([user_input])
+        similarities = cosine_similarity(query_embedding, corpus_embeddings)[0]
+        top_indices = similarities.argsort()[-3:][::-1]
+
+        st.success("Here are similar stories from real users:")
+
+        for idx in top_indices:
+            st.markdown("### ✨ Story Match")
+            st.write(df.iloc[idx]["clean_text"][:500] + "...")
+            st.markdown(f"[🔗 View on Reddit](https://reddit.com{df.iloc[idx]['permalink']})")
+            st.markdown(f"👍 Upvotes: {df.iloc[idx]['score']}")
+            st.markdown("---")
