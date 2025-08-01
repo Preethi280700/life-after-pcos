@@ -1,3 +1,8 @@
+import streamlit as st
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
+
 st.set_page_config(page_title="Life After PCOS", page_icon="💡")
 
 with st.sidebar:
@@ -7,10 +12,7 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("📌 Built by **Preethi Bommineni**")
 
-import streamlit as st
-from sentence_transformers import SentenceTransformer
-from sklearn.metrics.pairwise import cosine_similarity
-import pandas as pd
+
 
 # Load model and data
 model = SentenceTransformer('all-MiniLM-L6-v2')
